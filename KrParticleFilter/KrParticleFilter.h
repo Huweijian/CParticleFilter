@@ -29,8 +29,9 @@ public:
 
 
 
+
 private:
-	void sampleGaussian(Eigen::VectorXd initialMain, Eigen::MatrixXd initialCov, std::vector<bool> isCircVar);
-	void randn(Eigen::MatrixXd &mat, int row, int col, Eigen::VectorXd mean, Eigen::VectorXd cov);
+	void sampleGaussian(Eigen::VectorXd & initialMean, Eigen::MatrixXd & initialCov, std::vector<bool>& isCircVar);
 	double normalSample(double dummy, double mean, double var);
+	void randn(Eigen::MatrixXd & mat, int row, int col);
 };

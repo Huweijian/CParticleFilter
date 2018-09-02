@@ -8,7 +8,7 @@ int main(void) {
 	cov(0, 0) = 10;
 
 	ParticleFilter pf;
-	
-	pf.initilize(10, VectorXd::Zero(1), MatrixXd::Zero(1, 1));
+	Vector3d v(1, 2, 5);
+	pf.initilize(10, VectorXd::Zero(3), v.asDiagonal());
 	cin.get();
 }
