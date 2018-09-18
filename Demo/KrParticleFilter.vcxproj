@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\eigen;$(IncludePath)</IncludePath>
+    <IncludePath>F:\eigen;C:\Users\Huwei\Dev\eigen334;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\eigen;$(IncludePath)</IncludePath>
+    <IncludePath>F:\eigen;C:\Users\Huwei\Dev\eigen334;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>F:\eigen;$(IncludePath)</IncludePath>
+    <IncludePath>F:\eigen;C:\Users\Huwei\Dev\eigen334;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>F:\eigen;$(IncludePath)</IncludePath>
+    <IncludePath>F:\eigen;C:\Users\Huwei\Dev\eigen334;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,11 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KrParticleFilter.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="..\KrParticleFilter\KrParticleFilter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KrParticleFilter.h" />
+    <ClCompile Include="..\KrParticleFilter\KrParticleFilter.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
