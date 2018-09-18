@@ -151,11 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KrParticleFilter.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="..\KrParticleFilter\KrParticleFilter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KrParticleFilter.h" />
+    <ClCompile Include="..\KrParticleFilter\KrParticleFilter.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

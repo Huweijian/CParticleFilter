@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "KrParticleFilter.h"
+#include "../KrParticleFilter/KrParticleFilter.h"
 
 using namespace std;
 using namespace Eigen;
