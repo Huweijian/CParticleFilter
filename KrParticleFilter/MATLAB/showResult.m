@@ -4,7 +4,7 @@ x = data(:, 1);
 y = data(:, 2);
 % w = data(:, 3);
 
-Num = 0;
+Num = 5;
 px = reshape(x, Num+1, []);
 py = reshape(y, Num+1, []);
 % pw = reshape(w, Num+1, []);
@@ -16,7 +16,7 @@ py = reshape(y, Num+1, []);
 % myColor = cm(colorID, :); % returns your color
 
 for i=1:Num
-    plot(px(i, :), py(i, :), '.');
+    plot(px(i, :), py(i, :), '.-');
     hold on;
 %     plot(px(i, :), pw(i, :),'Color', myColor);
     axis([-1 25  -3 3])

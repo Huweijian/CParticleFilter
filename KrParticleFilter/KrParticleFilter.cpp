@@ -9,17 +9,24 @@
 	   and beyond, " Statistics, vol. 182, no. 1, pp. 1-69, 2003
 */
 
+// 禁止STL对Eigen矩阵的warning
 #define _SCL_SECURE_NO_WARNINGS
-#include "KrParticleFilter.h"
 #include <cassert>
 #include <iostream>
 #include <algorithm>
 #include <numeric>
 
+#include "KrParticleFilter.h"
+
 using namespace Eigen;
 using namespace std;
 
 namespace pf {
+
+	ParticleFilter::ParticleFilter() {
+		// 初始化随机数种子
+		std::srand((unsigned int)time(0));
+	}
 
 	void ParticleFilter::initilize(int numParticles, Eigen::VectorXd mean, Eigen::MatrixXd covariance, std::vector<bool> circularVariables) {
 		assert(numParticles > 0);
@@ -67,7 +74,7 @@ namespace pf {
 		//Take advantage of the fact that randSamples is sorted, so we only have to iterate through cumSumWeights once.
 		int i = 0, j = 0;
 		while (i < n && j < m) {
-			while (cumSumWeight(j) < randSamples(i) && j < m) {
+			while (j < m && cumSumWeight(j) < randSamples(i)) {
 				//% Find element in cumulative sum that is greater or equal to random number
 				j++;
 			}
@@ -116,7 +123,7 @@ namespace pf {
 			for (unsigned int i = 0; i < numParticles; i++) {
 				particlesNew.row(i) = particles.row(sampleIndices(i));
 			}
-			cout << "resample!" << endl;
+
 			//cout << "index:" << endl<< sampleIndices << endl;
 			//cout << "Old" << endl << particles<<endl;
 			//cout << "New" << endl << particlesNew<<endl;
@@ -164,7 +171,6 @@ namespace pf {
 		stateTransitionFcn(particles, trans);
 
 		//TODO: % Wrap all circular variables
-
 		getStateEstimate(stateOut, covOut);
 	}
 
@@ -195,6 +201,8 @@ namespace pf {
 		meanStateEstimator(stateOut, covOut);
 
 		// TODO: 其他状态估计的方法 
+		state = stateOut;
+		stateCovariance = covOut;
 	}
 
 	// MeanStateEstimator.m line 38
