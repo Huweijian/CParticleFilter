@@ -9,11 +9,11 @@ using namespace pf;
 
 void stateTrans(MatrixXd & particles, const VectorXd & state) {
 	particles.rowwise() += state.transpose();
-	particles = particles + randn((unsigned int )particles.rows(), (unsigned int)particles.cols()) * 0.2;
+	particles = particles + randn((unsigned int)particles.rows(), (unsigned int)particles.cols()) * 0.1;
 }
 
 VectorXd correct(MatrixXd & particles, const VectorXd & measurement) {
-	const double sigma = 2;
+	const double sigma = 0.5;
 	MatrixXd err = particles.rowwise() - measurement.transpose();
 	VectorXd distSquare = err.col(0).array().square() + err.col(1).array().square();
 	VectorXd likelihood = distSquare.unaryExpr([&](const double x) {
@@ -21,13 +21,13 @@ VectorXd correct(MatrixXd & particles, const VectorXd & measurement) {
 	});
 
 	return likelihood;
-	
+
 }
 
 int main(void) {
 
 	ParticleFilter pf;
-	pf.initilize(5, Vector2d{ 0, 0 }, Vector2d{ 0.3, 0.3}.asDiagonal());
+	pf.initilize(500, Vector2d{ 0, 0 }, Vector2d{ 0.02, 0.02 }.asDiagonal());
 	pf.stateTransitionFcn = stateTrans;
 	pf.measurementLikelihoodFcn = correct;
 
@@ -44,9 +44,9 @@ int main(void) {
 
 	while (t < 20) {
 
-		t += 0.05;
+		t += 0.2;
 		double x = t;
-		double y = sin(t);
+		double y = 0;
 		pf.predict(Vector2d{ x - lastX, y - lastY }, state, cov);
 		if (((int)(t * 100)) % 10 == 0)
 			pf.correct(Vector2d{ x, y }, state, cov);
@@ -54,11 +54,20 @@ int main(void) {
 		lastX = x;
 		lastY = y;
 
-		//of << pf.particles.format(csvFmt) << endl;
+		// output particles
+		MatrixXd pw(pf.particles.rows(), pf.particles.cols() + 1);
+		pw << pf.particles, pf.weights;
+		MatrixXd pws(pw.rows() + 1, pw.cols());
+		pws << pw, 
+			state.transpose(), MatrixXd::Ones(1, 1);
+		//of << pws.format(csvFmt) << endl;
+
+
+		// output state
 		of  << state.transpose().format(csvFmt) << endl;
 		cout << t << endl;
 	}
 
 	cout << "finish";
-
+	cin.get();
 }

@@ -116,6 +116,11 @@ namespace pf {
 			for (unsigned int i = 0; i < numParticles; i++) {
 				particlesNew.row(i) = particles.row(sampleIndices(i));
 			}
+			cout << "resample!" << endl;
+			//cout << "index:" << endl<< sampleIndices << endl;
+			//cout << "Old" << endl << particles<<endl;
+			//cout << "New" << endl << particlesNew<<endl;
+
 			particles = particlesNew;
 			weights = VectorXd::Ones(numParticles) / numParticles;
 		}
