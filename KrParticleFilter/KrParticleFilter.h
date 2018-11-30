@@ -10,6 +10,8 @@ namespace pf {
 
 	// 生成row * col大小的独立的正态分布随机数矩阵，均值为0，方差为1
 	Eigen::MatrixXd randn(unsigned int row, unsigned int col);
+    Eigen::VectorXd randn(unsigned int len);
+    double randn();
 
 	// 多元正态分布随机数生成器
 	struct MultiNormalSampler {

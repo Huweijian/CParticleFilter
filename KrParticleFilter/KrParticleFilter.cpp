@@ -39,6 +39,7 @@ namespace pf {
 		weights = VectorXd::Ones(numParticles) / numParticles;
 		if (circularVariables.size() == 0)
 			circularVariables = vector<bool>(numStateVariables, false);
+
 		isStateVariableCircular = circularVariables;
 
 		// Sample from a normal distribution with mean and covariance
@@ -49,6 +50,7 @@ namespace pf {
 
 	// MultinomialResampler.m line 18
 	Eigen::VectorXi ParticleFilter::multinominalResampler() {
+
 		// Generate N random numbers and sort them
 		VectorXd randSamples = VectorXd::Random(numParticles);
 		std::sort(randSamples.data(), randSamples.data() + randSamples.size());
@@ -151,13 +153,21 @@ namespace pf {
 
 	// Matlab randn
 	Eigen::MatrixXd randn(unsigned int row, unsigned int col) {
-		static std::mt19937 gen(std::random_device{}());
-		static std::normal_distribution<> nd;
+        static std::mt19937 gen(std::random_device{}());
+        static std::normal_distribution<> nd;
 		MatrixXd mat = MatrixXd{ row, col }.unaryExpr(
 			[&](double x) { return nd(gen); }
 		);
 		return mat;
 	}
+
+    Eigen::VectorXd randn(unsigned int len){
+        return randn(len, 1);
+    }
+
+    double randn(){
+        return randn(1,1)(0,0);
+    }
 
 	// ParticleFilter.m line 370
 	void ParticleFilter::predict(const Eigen::VectorXd & trans) {
