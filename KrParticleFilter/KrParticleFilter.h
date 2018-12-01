@@ -78,7 +78,7 @@ namespace pf {
 		// 当前状态估计
 		Eigen::VectorXd state;
 		// 当前协方差
-		Eigen::Matrix2d stateCovariance;
+		Eigen::MatrixXd stateCovariance;
 		// 重采样策略
 		ResampleTriggeredMethod triggeredMethod = RATIO;
 		// 最小有效粒子数目阈值（当重采样策略为RATIO时有效）
@@ -96,7 +96,7 @@ namespace pf {
 
 
 		// TODO: 状态估计方法（目前只有加权平均）
-		std::string stateEstimationMethod = "meanweight";
+		std::string stateEstimationMethod = "mean";
 		// TODO: 重采样方法（目前只有Multinominal）
 		std::string resamplingMethod = "multinominal";
 		// TODO: 重采样策略封装成类(Matlab robotics.ResamplingPolicy)

@@ -53,8 +53,8 @@ namespace pf {
 
 		// Generate N random numbers and sort them
 		VectorXd randSamples = VectorXd::Random(numParticles);
+		randSamples = (randSamples.array() + 1) / 2;
 		std::sort(randSamples.data(), randSamples.data() + randSamples.size());
-
 		// Find indices in weights corresponding to random numbers in randSamples
 		return findSortedSampleIndices(randSamples);
 	}
@@ -75,7 +75,7 @@ namespace pf {
 
 		//Take advantage of the fact that randSamples is sorted, so we only have to iterate through cumSumWeights once.
 		int i = 0, j = 0;
-		while (i < n && j < m) {
+		while (i <= n-1 && j <= m-1) {
 			while (j < m && cumSumWeight(j) < randSamples(i)) {
 				//% Find element in cumulative sum that is greater or equal to random number
 				j++;
@@ -85,7 +85,6 @@ namespace pf {
 
 			//% Look at next random number
 			i = i + 1;
-
 		}
 
 
@@ -98,7 +97,7 @@ namespace pf {
 
 		double squardSum = 0;
 		double neffRatio = 0;
-		switch (resamplingPolicy) {
+		switch (triggeredMethod) {
 		case RATIO:
 			squardSum = weights.squaredNorm();
 			assert(squardSum > 0);
@@ -213,6 +212,7 @@ namespace pf {
 		// TODO: 其他状态估计的方法 
 		state = stateOut;
 		stateCovariance = covOut;
+
 	}
 
 	// MeanStateEstimator.m line 38
