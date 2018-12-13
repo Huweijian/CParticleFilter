@@ -76,7 +76,7 @@ namespace pf {
 		//Take advantage of the fact that randSamples is sorted, so we only have to iterate through cumSumWeights once.
 		int i = 0, j = 0;
 		while (i <= n-1 && j <= m-1) {
-			while (j < m && cumSumWeight(j) < randSamples(i)) {
+			while (j < m-1 && cumSumWeight(j) < randSamples(i)) {
 				//% Find element in cumulative sum that is greater or equal to random number
 				j++;
 			}
