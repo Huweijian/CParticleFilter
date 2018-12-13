@@ -70,8 +70,10 @@ namespace pf {
 		unsigned int numParticles;
 		// 状态变换函数 输入为所有粒子particles (numParticles * numStateVariables大小的矩阵）和 状态更新量trans (向量) 输出为空
 		std::function<void(Eigen::MatrixXd&, const Eigen::VectorXd&)> stateTransitionFcn;
+		void (*stateTransitionFcnP)(Eigen::MatrixXd&, const Eigen::VectorXd&) = nullptr;
 		// 测量似然函数 输入为所有粒子particles (numParticles * numStateVariables大小的矩阵）和 测量值measurement (向量) 输出为每个粒子的似然（长度为numParticles的向量）
-		std::function<Eigen::VectorXd(Eigen::MatrixXd, const Eigen::VectorXd&)> measurementLikelihoodFcn;
+		std::function<Eigen::VectorXd(Eigen::MatrixXd&, const Eigen::VectorXd&)> measurementLikelihoodFcn;
+		Eigen::VectorXd (*measurementLikelihoodFcnP)(Eigen::MatrixXd&, const Eigen::VectorXd&) = nullptr;
 		// 粒子 (numParticles * numStateVariables大小的矩阵），每一行为一个粒子
 		Eigen::MatrixXd particles;
 		// 权重

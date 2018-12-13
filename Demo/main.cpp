@@ -32,8 +32,10 @@ int main(void) {
 	pf.initilize(5, Vector2d{ 0, 0 }, Vector2d{ 0.02, 0.02 }.asDiagonal());
 
 	// 2. 设置粒子状态变化函数和更新函数
-	pf.stateTransitionFcn = stateTrans;
-	pf.measurementLikelihoodFcn = correct;
+	pf.stateTransitionFcnP = &stateTrans;
+	pf.measurementLikelihoodFcnP = &correct;
+	//pf.stateTransitionFcn = stateTrans;
+	//pf.measurementLikelihoodFcn = correct;
 
 	// 输出路径和格式
 	ofstream of("./MATLAB/res.csv");

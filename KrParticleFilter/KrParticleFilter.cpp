@@ -171,13 +171,15 @@ namespace pf {
 	// ParticleFilter.m line 370
 	void ParticleFilter::predict(const Eigen::VectorXd & trans) {
 		//% Evolve state of each particle
-		stateTransitionFcn(particles, trans);
+		if (stateTransitionFcnP)
+			(*stateTransitionFcnP)(particles, trans);
+		else
+			stateTransitionFcn(particles, trans);
 	}
 
 	// ParticleFilter.m line 370
 	void ParticleFilter::predict(const Eigen::VectorXd & trans, Eigen::VectorXd & stateOut, Eigen::MatrixXd &covOut) {
-		//% Evolve state of each particle
-		stateTransitionFcn(particles, trans);
+		predict(trans);
 
 		//TODO: % Wrap all circular variables
 		getStateEstimate(stateOut, covOut);
@@ -185,8 +187,13 @@ namespace pf {
 
 	// ParticleFilter.m line 434
 	void ParticleFilter::correct(const Eigen::VectorXd & mes, Eigen::VectorXd & stateOut, Eigen::MatrixXd & covOut) {
+		VectorXd likelihood;
+
 		// Determine likelihood of measurement for each particle
-		auto likelihood = measurementLikelihoodFcn(particles, mes);
+		if (measurementLikelihoodFcnP)
+			likelihood = (*measurementLikelihoodFcnP)(particles, mes);
+		else
+			likelihood = measurementLikelihoodFcn(particles, mes);
 
 		// Always add some small fraction to the likelihoods to avoid a singularity when the weights are normalized.
 		weights = (weights.array() * likelihood.array() + 1e-99).matrix();
