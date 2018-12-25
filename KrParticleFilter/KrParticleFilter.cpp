@@ -141,7 +141,7 @@ namespace pf {
 
 		// Sample for non-circular state variables
 		MatrixXd mat = (randn(numParticles, numStateVariables));
-
+		initialCov = initialCov.array().sqrt();
 		mat = mat * initialCov;
 		mat.rowwise() += initialMean.transpose();
 		particles = mat;
