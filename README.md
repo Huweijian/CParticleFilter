@@ -6,7 +6,7 @@ C++粒子滤波，模仿MATLAB的robotics.ParticleFilter实现
 - 状态估计方法（目前只实现了均值）
 
 #### 使用方法
-参考/demo 文件夹中的例子  
+参考/Demo 文件夹中的例子  
 详细API可以参考 [MATLAB robotics.ParticleFilter][1]
 
 #### 依赖
